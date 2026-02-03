@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Every One - Practice Exam</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #7f8c8d;
+            font-weight: normal;
+            margin-bottom: 40px;
+        }
+        .instructions {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .instructions ul {
+            line-height: 1.8;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>For Every One</h1>
+    <h2>Poetry Practice Exam by Jason Reynolds</h2>
+    
+    <div class="instructions">
+        <h3>Before You Begin:</h3>
+        <ul>
+            <li>Make sure you have a quiet space to practice</li>
+            <li>Allow microphone access when prompted</li>
+            <li>The exam will take approximately 12-18 minutes</li>
+            <li>You can take this practice exam as many times as you'd like</li>
+            <li>Each session will have different questions</li>
+        </ul>
+    </div>
+    
+    <button onclick="startPractice()">Start Practice Exam</button>
+    
+    <p class="note">
+        Each time you click this button, you'll receive a new set of randomly selected questions.
+    </p>
+    
+    <script>
+        function startPractice() {
+            // Generate random question assignments
+            const phase2_q1 = Math.floor(Math.random() * 12) + 1;
+            let phase2_q2 = Math.floor(Math.random() * 12) + 1;
+            
+            // Ensure phase2_q1 and phase2_q2 are different
+            while (phase2_q2 === phase2_q1) {
+                phase2_q2 = Math.floor(Math.random() * 12) + 1;
+            }
+            
+            const device_q = Math.floor(Math.random() * 5) + 1;
+            
+            // Create variables object
+            const variables = {
+                phase2_q1: phase2_q1.toString(),
+                phase2_q2: phase2_q2.toString(),
+                device_q: device_q.toString()
+            };
+            
+            // Encode to base64
+            const encoded = btoa(JSON.stringify(variables));
+            
+            // REPLACE 'YOUR_AGENT_ID_HERE' with your actual ElevenLabs agent ID
+            const agentId = 'YOUR_AGENT_ID_HERE';
+            
+            // Redirect to ElevenLabs with unique variables
+            const url = `https://elevenlabs.io/app/talk-to?agent_id=${agentId}&vars=${encoded}`;
+            
+            console.log('Generated variables:', variables);
+            console.log('Redirecting to:', url);
+            
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
